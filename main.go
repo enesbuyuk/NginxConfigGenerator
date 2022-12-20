@@ -3,8 +3,8 @@ package main
 import(
 	"fmt"
 	"os"
-    "log"
-    "bufio"
+	"log"
+	"bufio"
 )
 	
 func check(e error) {
@@ -14,35 +14,34 @@ func check(e error) {
 }
 
 func main() {
-	domainWWWPath		:= "ex.enesbuyuk.com"
-	domain 			:= "ex.enesbuyuk.com"
-    domainFilename  := "ex.enesbuyuk.com"
+	domainWWWPath	:= "ex.enesbuyuk.com"
+	domain 		:= "ex.enesbuyuk.com"
+	domainFilename  := "ex.enesbuyuk.com"
 	configContent	:= "server{listen 80;root /var/www/"+domainWWWPath+";index index.html index.htm;server_name "+domain+";}"
-
     
-    f, err := os.Create("/etc/nginx/sites-available/"+domainFilename)
-    if err != nil {
-        log.Fatal(err)
-    }
-    defer f.Close()
+	f, err := os.Create("/etc/nginx/sites-available/"+domainFilename)
+ 	if err != nil {
+        	log.Fatal(err)
+	}
+    	defer f.Close()
     	
-    f.Sync()
-    w := bufio.NewWriter(f)
-    n4, err := w.WriteString(configContent)
-    check(err)
-    fmt.Println("----> "+f.Name()+" successfully created!")
-    fmt.Printf("----> wrote %d bytes\n", n4)
+    	f.Sync()
+    	w := bufio.NewWriter(f)
+    	n4, err := w.WriteString(configContent)
+    	check(err)
+    	fmt.Println("----> "+f.Name()+" successfully created!")
+    	fmt.Printf("----> wrote %d bytes\n", n4)
 
-    w.Flush()
+    	w.Flush()
 
-    if _, err := os.Lstat("/etc/nginx/sites-enabled/"+domainFilename); err == nil {
-        os.Remove("/etc/nginx/sites-enabled/"+domainFilename)
-    }
+    	if _, err := os.Lstat("/etc/nginx/sites-enabled/"+domainFilename); err == nil {
+    	    os.Remove("/etc/nginx/sites-enabled/"+domainFilename)
+   	}
     
-    err = os.Symlink("/etc/nginx/sites-available/"+domainFilename, "/etc/nginx/sites-enabled/"+domainFilename)
-    if err != nil {
+    	err = os.Symlink("/etc/nginx/sites-available/"+domainFilename, "/etc/nginx/sites-enabled/"+domainFilename)
+    	if err != nil {
         log.Fatal(err)
-    }else{
-        fmt.Println("----> "+"Symlink successfully created!\n")
-    }
+    	}else{
+		fmt.Println("----> "+"Symlink successfully created!\n")
+    	}
 }
