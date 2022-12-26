@@ -14,10 +14,10 @@ func check(e error) {
 }
 
 func main() {
-	domainWWWPath	:= "ex.enesbuyuk.com"
-	domain 		:= "ex.enesbuyuk.com"
+	domainWWWPath   := "/var/www/ex.enesbuyuk.com"
+	domain 		:= "ex.enesbuyuk.com, www.ex.enesbuyuk.com"
 	domainFilename  := "ex.enesbuyuk.com"
-	configContent	:= "server{listen 80;root /var/www/"+domainWWWPath+";index index.html index.htm;server_name "+domain+";}"
+	configContent	:= "server{listen 80;root "+domainWWWPath+";index index.html index.htm;server_name "+domain+";}"
     
 	f, err := os.Create("/etc/nginx/sites-available/"+domainFilename)
  	if err != nil {
