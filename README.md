@@ -1,4 +1,4 @@
-# Nginx Config Generator with Go
+# Nginx Config Generating with Go
 How to create Nginx config file with Go?
 
 ## Usage:
